@@ -1,6 +1,6 @@
 CFLAGS=-Wall -Wextra -O3
 DEBUG_FLAGS=-fsanitize=address -g
-LIBS=`pkg-config --libs cfitsio`
+LIBS=`pkg-config --cflags --libs cfitsio`
 OMP_FLAGS=-fopenmp
 
 ifdef DEBUG
