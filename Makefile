@@ -16,8 +16,11 @@ all: directories build/imstat build/imstat_opt build/imstat_fread
 directories:
 	mkdir -p build
 
-build/%: src/%.c
-	$(CC) -o $@ $< $(CFLAGS) $(LIBS)
+build/%.o: src/%.c src/common.h
+	$(CC) -o $@ -c $< $(CFLAGS) $(LIBS)
+
+build/%: src/%.c build/common.o
+	$(CC) -o $@ $< build/common.o $(CFLAGS) $(LIBS)
 
 clean:
 	rm build/*
