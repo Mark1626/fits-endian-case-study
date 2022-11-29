@@ -1,7 +1,12 @@
 CFLAGS=-Wall -Wextra -O3
 DEBUG_FLAGS=-fsanitize=address -g
+PROFILE_FLAGS=-fno-omit-frame-pointer -g
 LIBS=`pkg-config --cflags --libs cfitsio`
 OMP_FLAGS=-fopenmp
+
+ifdef PROFILE
+	CFLAGS+=$(PROFILE_FLAGS)
+endif
 
 ifdef DEBUG
   CFLAGS+=$(DEBUG_FLAGS)
