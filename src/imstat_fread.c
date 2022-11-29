@@ -13,7 +13,6 @@ int extract_data_from_fits(const char *filename, fitsfile *fptr,
   int hdutype, naxis;
   int status = 0;
   long *naxes = fits->naxes;
-  long fpixel[4] = {1, 1, 1, 1};
   int bitpix;
 
   if (fits_get_hdu_type(fptr, &hdutype, &status) || hdutype != IMAGE_HDU) {
@@ -97,13 +96,13 @@ int extract_data_from_fits(const char *filename, fitsfile *fptr,
   }
   fseek(file, databegin, SEEK_SET);
 
-  unsigned long read_bytes = 0;
-  read_bytes = fread(fits->data, word_size, num_elem, file);
+  unsigned long bytes_read = 0;
+  bytes_read = fread(fits->data, word_size, num_elem, file);
 
-  if (read_bytes != num_elem) {
+  if (bytes_read != num_elem) {
     fprintf(stderr,
-            "Error: Unable to read content, read only %lu when reading %lu\n",
-            read_bytes, num_elem);
+            "Error: Unable to read content, read only %lu elements when reading %lu elements\n",
+            bytes_read, num_elem);
     fits_report_error(stderr, status);
     abort();
   }
@@ -117,7 +116,7 @@ int extract_data_from_fits(const char *filename, fitsfile *fptr,
 
 int main(int argc, char **argv) {
   if (argc < 2) {
-    fprintf(stderr, "Usage: ./imstat <filename>\n");
+    fprintf(stderr, "Usage: ./imstat_fread <filename>\n");
     return 1;
   }
 

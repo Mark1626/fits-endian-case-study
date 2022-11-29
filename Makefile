@@ -11,7 +11,7 @@ ifdef OMP
 	CFLAGS+=$(OMP_FLAGS)
 endif
 
-all: directories build/imstat build/imstat_opt build/imstat_fread
+all: directories build/imstat build/imstat_opt build/imstat_fread build/imcvt_bit_to_little build/imstat_fread_le
 
 directories:
 	mkdir -p build
