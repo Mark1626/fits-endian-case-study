@@ -1,0 +1,14 @@
+Running imstat
+Reading file ./image.restored.i.SB10809.cube.MilkyWay.fits
+Swapping polarisation and frequency axis
+Dim: 4236 x 4234 x 270 x 1
+Mean: 0.00001
+Min:  -0.44025
+Max:  0.59011
+
+ Performance counter stats for 'system wide':
+
+            344.37 Joules power/energy-pkg/                                           
+
+       9.767005551 seconds time elapsed
+

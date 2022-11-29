@@ -3,7 +3,7 @@
 set -e
 set -x
 
-declare -a CASES=(imstat_opt imstat_fread)
+declare -a CASES=(imstat imstat_fread)
 
 host=$1
 image=$2
@@ -32,13 +32,13 @@ rm -f stat/$host/energy/${image}-stats.csv
 for case in ${CASES[@]}
 do  
       rm -f stat/$host/energy/${image}-${case}-result.txt
-
+      
       echo "Running ${case}" >> stat/$host/energy/${image}-${case}-result.txt 
 
       perf stat -e power/energy-pkg/ ./build/${case} ${image} &>> stat/$host/energy/${image}-${case}-result.txt 
 
       PATTERN=`pattern $i $case`
-      ((i++))
+      ((i+=1))
       cat stat/$host/energy/${image}-${case}-result.txt | $AWK "$PATTERN" >> stat/$host/energy/${image}-stats.csv
 done
 
@@ -62,9 +62,10 @@ cat stat/$host/energy/${image}-${case}-result.txt | $AWK "$PATTERN" >> stat/$hos
     set title \"$bench Benchmark\";                        \
     set xlabel \"Matrix Dim\";                             \
     set ylabel \"Joules\";                     \
+    set yrange [0:500];                 \
     unset key;                                      \
     set boxwidth 0.5;                                       \
     set style fill solid;                                \
                                                           \
-    plot \"stat/$host/energy/${image}-stats.csv\" using 1:3:xtic(2) with boxes
+    plot \"stat/$host/energy/${image}-stats.csv\" using 1:3:xtic(2) with boxes; \
 " | gnuplot > stat/$host/energy/${image}-performance.png
