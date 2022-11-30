@@ -48,7 +48,7 @@ rm -f stat/$host/energy/${image}-${case}-result.txt
 
 echo "Running ${case}" >> stat/$host/energy/${image}-${case}-result.txt 
 
-perf stat -e power/energy-pkg/ ./build/${case} ${image} &>> stat/$host/energy/${image}-${case}-result.txt 
+perf stat -e power/energy-pkg/ ./build/${case} ${image}.le &>> stat/$host/energy/${image}-${case}-result.txt 
 
 PATTERN=`pattern $i $case`
 
